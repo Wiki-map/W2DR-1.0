@@ -1,9 +1,9 @@
 #include <w2dr.hpp>
 
+#include <Window.hpp>   
+
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
-
-#include <Window.hpp>   
 
 // Transforms pixel cords to opengl cords
 vec2 GetSpaceCords(int x, int y) {
@@ -125,7 +125,7 @@ Texture2D LoadTexture(const char *path) {
         p1.x,p1.y, 0,1
     };
 
-    float indices[] = {
+    unsigned int indices[] = {
         0,1,3,
         1,2,3
     };
@@ -164,7 +164,7 @@ void DrawTexture2D(Texture2D texture,int x,int y,Color color) {
 
     Colorf col = ColorToColorf(color);
 
-    glUniform4f(glGetUniformLocation(DefultShader,"u_Position"),0,0,0,0);
+    glUniform4f(glGetUniformLocation(DefultShader,"u_Position"),position.x,position.y,0,0);
     glUniform4f(glGetUniformLocation(DefultShader,"u_color"),col.r,col.g,col.b,col.a);
 
     glUniform1i(glGetUniformLocation(DefultShader,"u_texture"),0);
