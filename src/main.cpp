@@ -6,16 +6,15 @@
 #include <Window.hpp>
 #include <w2dr.hpp>
 
-int main(){
-    Init(800,800,"hi");
-    InitRenderer();
+#include <time.h>
 
-    Texture2D texture = LoadTexture("absolute path");
+int main(){
+    Init(1024,1024,"hi");
+    InitRenderer();
 
     while (!WindowShouldClose()) {
         ClearBackground({255,255,255,255});
 
-        DrawTexture2D(texture,0,0,{255,255,255,255});
 
         glfwSwapBuffers(GetWindow());
         glfwPollEvents();

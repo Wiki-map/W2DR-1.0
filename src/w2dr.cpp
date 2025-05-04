@@ -21,7 +21,7 @@ Colorf ColorToColorf(Color val)
     float a = val.a / 255;
     return {r,g,b,a};
 }
-
+    
 unsigned int CompileShader(const char* VertexShader,const char* FragmentShader) {
     unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertexShader,1,&VertexShader,NULL);
@@ -106,7 +106,7 @@ Texture2D LoadTexture(const char *path) {
         return {0,0,0,0,0,0};
     }
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
     glGenerateMipmap(GL_TEXTURE_2D);
 
     stbi_image_free(data);
@@ -154,7 +154,7 @@ Texture2D LoadTexture(const char *path) {
 
 }
 
-void DrawTexture2D(Texture2D texture,int x,int y,Color color) {
+void DrawTexture2D(Texture2D texture,int x,int y,Color tint) {
     
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture.ID);
@@ -162,10 +162,10 @@ void DrawTexture2D(Texture2D texture,int x,int y,Color color) {
 
     vec2 position = GetSpaceCords(x,y);
 
-    Colorf col = ColorToColorf(color);
+    Colorf color = ColorToColorf(tint);
 
     glUniform4f(glGetUniformLocation(DefultShader,"u_Position"),position.x,position.y,0,0);
-    glUniform4f(glGetUniformLocation(DefultShader,"u_color"),col.r,col.g,col.b,col.a);
+    glUniform4f(glGetUniformLocation(DefultShader,"u_color"),color.r,color.g,color.b,color.a);
 
     glUniform1i(glGetUniformLocation(DefultShader,"u_texture"),0);
 
